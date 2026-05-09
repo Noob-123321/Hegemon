@@ -1,7 +1,5 @@
 #define SDL_MAIN_USE_CALLBACKS 1  /* Использовать функции обратного вызова вместо обычной main() */
 
-#include "core/save.h"          // Подключение заголовочного файла для работы с сохранениями
-#include "map/map.h"            // Подключение заголовочного файла для работы с картой
 #include <SDL3/SDL.h>           // Основной заголовок SDL3
 #include <SDL3/SDL_main.h>      // Заголовок SDL3 для точки входа с callback-архитектурой
 
@@ -18,7 +16,7 @@ static SDL_Renderer *renderer = NULL;
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
     // Устанавливает метаданные приложения: название, версию, идентификатор
-    SDL_SetAppMetadata("asd", "1.0", "com.example.renderer-clear");
+    SDL_SetAppMetadata("Hegemon", "0.0.1", "com.heg.hegemon");
 
     // Инициализирует подсистему SDL Video. При неудаче – логирует ошибку и завершает.
     if (!SDL_Init(SDL_INIT_VIDEO)) {
@@ -28,14 +26,13 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 
     // Создаёт окно размером 640x480 с возможностью изменения размера и привязанный к нему 2D-рендерер.
     // Указатели на окно и рендерер записываются в глобальные переменные window и renderer.
-    if (!SDL_CreateWindowAndRenderer("examples/renderer/clear", 640, 480, SDL_WINDOW_RESIZABLE, &window, &renderer)) {
+    if (!SDL_CreateWindowAndRenderer("Hegemon", 480/9*16, 480, SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY, &window, &renderer)) {
         SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
-
     // Настраивает логическое представление рендерера:
     // устанавливает виртуальное разрешение 640x480 и режим масштабирования Letterbox.
-    SDL_SetRenderLogicalPresentation(renderer, 640, 480, SDL_LOGICAL_PRESENTATION_LETTERBOX);
+    SDL_SetRenderLogicalPresentation(renderer, 10, 10, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
     return SDL_APP_CONTINUE;  // Продолжаем выполнение программы
 }
@@ -73,13 +70,13 @@ SDL_AppResult SDL_AppIterate(void *appstate)
 
     // Устанавливает цвет очистки рендерера в формате float RGBA (альфа = непрозрачность)
     SDL_SetRenderDrawColorFloat(renderer, red, green, blue, SDL_ALPHA_OPAQUE_FLOAT);
-
     // Очищает текущий целевой буфер рендеринга (экран) установленным цветом
     SDL_RenderClear(renderer);
 
+
     // Показывает нарисованный кадр на экране (меняет местами буферы при двойной буферизации)
     SDL_RenderPresent(renderer);
-
+    SDL_Delay(16);
     return SDL_APP_CONTINUE;  // Продолжаем выполнение
 }
 
@@ -126,5 +123,4 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result)
 //    std::cout << "Bit: " << bit << std::endl;
 //    return 0;
 //}
-//asdsadasd
 
