@@ -27,4 +27,4 @@ add_custom_command(TARGET hegemon_v0_0_1 POST_BUILD
         $<TARGET_FILE_DIR:hegemon_v0_0_1>
 )
 
-#asd
+#as
