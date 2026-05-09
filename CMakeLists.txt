@@ -26,4 +26,4 @@ add_custom_command(TARGET hegemon_v0_0_1 POST_BUILD
         "${CMAKE_CURRENT_SOURCE_DIR}/vendor/SDL3/lib/x64/SDL3.dll"
         $<TARGET_FILE_DIR:hegemon_v0_0_1>
 )
-asd
+
